@@ -22,7 +22,7 @@ final class PestTestFinder implements TestFinder
     }
 
     /**
-     * @param list<string> $arguments
+     * @param  list<string>  $arguments
      * @return list<string>
      */
     private function removeParallelArguments(array $arguments): array
