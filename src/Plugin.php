@@ -7,7 +7,6 @@ namespace Pest\Sharding;
 use InvalidArgumentException;
 use Pest\Contracts\Plugins\HandlesArguments;
 use Pest\Plugins\Concerns\HandleArguments;
-use Pest\Sharding\TestFinder\PestTestFinder;
 use Pest\Sharding\TestFinder\TestFinder;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -45,7 +44,7 @@ final class Plugin implements HandlesArguments
     /**
      * @return array{positive-int, positive-int} | false
      */
-    private function shardingArgs(): array | false
+    private function shardingArgs(): array|false
     {
         if ($this->input->hasParameterOption('--shard')) {
             $shard = $this->input->getParameterOption('--shard');
@@ -80,14 +79,14 @@ final class Plugin implements HandlesArguments
     }
 
     /**
-     * @param list<string> $arguments
+     * @param  list<string>  $arguments
      * @return list<string>
      */
     private function removeShardingArgs(array $arguments): array
     {
         foreach ($arguments as $key => $argument) {
             if (str_contains($argument, '=')) {
-                [$name,] = explode('=', $argument);
+                [$name] = explode('=', $argument);
 
                 if (in_array($name, self::OPTIONS, strict: true)) {
                     unset($arguments[$key]);
@@ -111,8 +110,9 @@ final class Plugin implements HandlesArguments
     /**
      * @template TKey of array-key
      * @template TItem
-     * @param array<TKey, TItem> $array
-     * @param positive-int $numberOfGroups
+     *
+     * @param  array<TKey, TItem>  $array
+     * @param  positive-int  $numberOfGroups
      * @return array<int, array<TKey, TItem>>
      */
     private static function arraySplit(array $array, int $numberOfGroups): array
