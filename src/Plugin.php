@@ -67,12 +67,14 @@ final class Plugin implements HandlesArguments
             if ($index === null || $total === null) {
                 throw new InvalidArgumentException('Invalid sharding format. Use --shard-index=1 --shard-total=5');
             }
+
+            [$index, $total] = [(int) $index, (int) $total];
         } else {
             return false;
         }
 
         if ($index < 1 || $total < 1 || $index > $total) {
-            throw new InvalidArgumentException('Invalid sharding format. Use --shard=1/8');
+            throw new InvalidArgumentException('Invalid sharding format. Index and total must be positive integers and index must be less than or equal to total.');
         }
 
         return [$index, $total];

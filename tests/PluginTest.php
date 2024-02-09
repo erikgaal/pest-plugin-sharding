@@ -31,3 +31,16 @@ it('adds a filter argument', function () {
     expect($plugin->handleArguments([]))
         ->toContain('--filter', 'Test\\\\A');
 });
+
+it('uses alternative arguments to add filter argument', function () {
+    $plugin = (new Plugin(
+        new ArrayInput(['--shard-index' => '1', '--shard-total' => '2']),
+        (new FakeTestFinder([
+            'Test\A',
+            'Test\B',
+        ]))
+    ));
+
+    expect($plugin->handleArguments([]))
+        ->toContain('--filter', 'Test\\\\A');
+});
