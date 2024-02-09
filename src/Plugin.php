@@ -7,6 +7,8 @@ namespace Pest\Sharding;
 use InvalidArgumentException;
 use Pest\Contracts\Plugins\HandlesArguments;
 use Pest\Plugins\Concerns\HandleArguments;
+use Pest\Sharding\TestFinder\PestTestFinder;
+use Pest\Sharding\TestFinder\TestFinder;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -20,6 +22,7 @@ final class Plugin implements HandlesArguments
 
     public function __construct(
         private readonly InputInterface $input,
+        private readonly TestFinder $testFinder,
     ) {
     }
 
@@ -33,7 +36,7 @@ final class Plugin implements HandlesArguments
 
         $arguments = $this->removeShardingArgs($arguments);
 
-        $tests = TestFinder::allTests($arguments);
+        $tests = $this->testFinder->allTests($arguments);
         $testsToRun = self::arraySplit($tests, $total)[$index - 1] ?? [];
 
         return [...$arguments, '--filter', $this->buildFilterArgument($testsToRun)];

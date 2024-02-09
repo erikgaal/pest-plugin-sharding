@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Pest\Sharding;
+namespace Pest\Sharding\TestFinder;
 
 use Symfony\Component\Process\Process;
 
-final class TestFinder
+final class PestTestFinder implements TestFinder
 {
     /**
      * @param list<string> $arguments
      * @return list<string>
      */
-    public static function allTests(array $arguments): array
+    public function allTests(array $arguments): array
     {
         $output = (new Process(['php', 'vendor/bin/pest', '--list-tests', ...$arguments]))->mustRun()->getOutput();
 

@@ -25,6 +25,14 @@
     "autoload": {
         "psr-4": {
             "Pest\\Sharding\\": "src/"
+        },
+        "files": [
+            "src/Autoload.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pest\\Sharding\\Tests\\": "tests/"
         }
     },
     "require-dev": {
